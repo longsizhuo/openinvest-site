@@ -15,7 +15,7 @@ const STR = {
       copy: 'Copy',
       copied: 'Copied',
       claude: 'Then say “set up invest” to onboard. No API key needed (Coordinator path).',
-      codex: 'agentskills.io standard — point any agent at the skill dir via CLAUDE_SKILLS_DIR.',
+      codex: 'Then enable “invest” in /plugins. Codex reads the same SKILL.md — or drop it into ~/.agents/skills.',
       github: 'Manual install. The backend self-bootstraps (uv sync) on first run.',
     },
     why: {
@@ -85,7 +85,7 @@ const STR = {
       copy: '复制',
       copied: '已复制',
       claude: '装完对 Claude 说"帮我初始化 invest"。Coordinator 路径不需要 API key。',
-      codex: 'agentskills.io 开放标准 —— 任意 agent 用 CLAUDE_SKILLS_DIR 指到 skill 目录。',
+      codex: '然后在 /plugins 里启用 "invest"。Codex 读同一份 SKILL.md —— 也可直接放进 ~/.agents/skills。',
       github: '手动安装。后端在首次运行时自举（uv sync）。',
     },
     why: {
