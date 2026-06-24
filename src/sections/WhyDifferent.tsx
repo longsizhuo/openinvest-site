@@ -1,19 +1,24 @@
+import CommitteeFlow from '../components/diagrams/CommitteeFlow'
+
 export default function WhyDifferent() {
   return (
     <section
       id="why"
       className="flex h-screen w-full flex-col items-center justify-center bg-canvas px-6"
     >
-      <div className="max-w-3xl text-center">
+      <div className="w-full max-w-4xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">The approach</p>
-        <h2 className="mt-4 text-balance text-4xl font-bold leading-tight text-ink sm:text-5xl">
-          We tested the hyped multi-agent playbook. It didn&rsquo;t beat simple baselines.
+        <h2 className="mt-3 text-balance text-3xl font-bold leading-tight text-ink sm:text-4xl">
+          Not more agents — a committee that debates.
         </h2>
-        <p className="mt-5 text-balance text-lg text-muted">
-          So we built something more rigorous: a four-role committee that debates,
-          cross-challenges, and earns a measured defensive edge — proven on real data below.
+        <p className="mx-auto mt-4 max-w-2xl text-balance text-muted">
+          Three independent analysts argue from different evidence, cross-challenge in a second
+          round, and a CIO synthesizes one verdict with a confidence level. We chose this over the
+          hyped analyst-voting playbook because, on real data, that playbook failed our gates.
         </p>
-        {/* CommitteeFlow diagram is added in the next step */}
+        <div className="mx-auto mt-10 max-w-3xl">
+          <CommitteeFlow />
+        </div>
       </div>
     </section>
   )
