@@ -1,38 +1,51 @@
 import ChartCard from '../components/charts/ChartCard'
 import BearCagrChart from '../components/charts/BearCagrChart'
 import RegimeSharpeChart from '../components/charts/RegimeSharpeChart'
-import AnalystGateChart from '../components/charts/AnalystGateChart'
-import CrossModelHeatmap from '../components/charts/CrossModelHeatmap'
-import { analystGate, bearCagr, crossModel, regimeSharpe } from '../data/experiments'
+import { bearCagr, regimeSharpe } from '../data/experiments'
+import { FIGURES } from '../data/figures'
+import { useI18n } from '../i18n'
 
 export default function Evidence() {
+  const { t, lang } = useI18n()
+  const c = t.evidence.charts
   return (
-    <section id="evidence" className="bg-canvas px-6 py-24">
+    <section id="evidence" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <header className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Evidence</p>
-          <h2 className="mt-3 text-balance text-3xl font-bold text-ink sm:text-4xl">
-            Measured on real data — wins and honest losses
-          </h2>
-          <p className="mt-4 text-balance text-muted">
-            Every chart is built from the experiment file it cites. Look-ahead-prone windows are
-            flagged; we show the cases where the committee trails, not just where it leads.
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+            {t.evidence.eyebrow}
           </p>
+          <h2 className="mt-3 text-balance text-3xl font-bold text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.7)] sm:text-4xl">
+            {t.evidence.title}
+          </h2>
+          <p className="mt-4 text-balance text-white/80 drop-shadow-[0_1px_12px_rgba(0,0,0,0.7)]">{t.evidence.lead}</p>
         </header>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <ChartCard title={bearCagr.title} takeaway={bearCagr.takeaway} caveat={bearCagr.caveat} source={bearCagr.source}>
+        <h3 className="mb-6 mt-16 text-center text-lg font-semibold text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
+          {t.evidence.defensiveTitle}
+        </h3>
+        <div className="grid gap-6 md:grid-cols-2">
+          <ChartCard title={c.bear.title} takeaway={c.bear.takeaway} caveat={c.bear.caveat} source={bearCagr.source}>
             <BearCagrChart />
           </ChartCard>
-          <ChartCard title={regimeSharpe.title} takeaway={regimeSharpe.takeaway} caveat={regimeSharpe.caveat} source={regimeSharpe.source}>
+          <ChartCard title={c.regime.title} takeaway={c.regime.takeaway} caveat={c.regime.caveat} source={regimeSharpe.source}>
             <RegimeSharpeChart />
           </ChartCard>
-          <ChartCard title={analystGate.title} takeaway={analystGate.takeaway} caveat={analystGate.caveat} source={analystGate.source}>
-            <AnalystGateChart />
-          </ChartCard>
-          <ChartCard title={crossModel.title} takeaway={crossModel.takeaway} caveat={crossModel.caveat} source={crossModel.source}>
-            <CrossModelHeatmap />
-          </ChartCard>
+        </div>
+
+        <h3 className="mb-6 mt-16 text-center text-lg font-semibold text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
+          {t.evidence.figuresTitle}
+        </h3>
+        <div className="grid gap-6 md:grid-cols-2">
+          {FIGURES.map((f) => {
+            const cap = lang === 'zh' ? f.zh : f.en
+            return (
+              <figure key={f.src} className="glass-card flex flex-col p-4">
+                <img src={f.src} alt={cap} loading="lazy" className="w-full bg-white" />
+                <figcaption className="mt-3 text-sm leading-relaxed text-ink/70">{cap}</figcaption>
+              </figure>
+            )
+          })}
         </div>
       </div>
     </section>

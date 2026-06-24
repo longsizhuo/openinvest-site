@@ -1,27 +1,23 @@
 import { motion } from 'motion/react'
 import InstallTabs from '../components/InstallTabs'
-import heroBg from '../assets/hero-bg.svg'
+import { useI18n } from '../i18n'
 
 export default function Hero() {
+  const { t } = useI18n()
   return (
-    <section
-      className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-hero px-6 text-white"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
+    <section className="relative flex h-screen w-full flex-col items-center justify-center px-6 text-white">
       <div className="flex w-full max-w-3xl flex-col items-center text-center">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/70">
+          {t.hero.tagline}
+        </p>
         <h1
           style={{ color: '#ffffff' }}
-          className="text-5xl font-bold tracking-tight drop-shadow-[0_2px_40px_rgba(46,111,242,0.45)] sm:text-7xl md:text-8xl"
+          className="text-5xl font-bold tracking-tight drop-shadow-[0_2px_40px_rgba(0,0,0,0.6)] sm:text-7xl md:text-8xl"
         >
           OpenInvest
         </h1>
-        <p className="mt-5 max-w-xl text-balance text-lg text-white/70 sm:text-xl">
-          Self-hosted AI investment committee. Four independent LLM roles
-          challenge each other — the decision stays yours.
+        <p className="mt-5 max-w-xl text-balance text-lg text-white/80 drop-shadow-[0_1px_12px_rgba(0,0,0,0.7)] sm:text-xl">
+          {t.hero.subtitle}
         </p>
 
         <div className="mt-9 flex w-full justify-center">
@@ -29,9 +25,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* scroll affordance (decorative bounce only — no opacity gating) */}
-      <div className="absolute bottom-8 flex flex-col items-center text-white/40" aria-hidden="true">
-        <span className="text-xs tracking-wide">scroll</span>
+      <div className="absolute bottom-8 flex flex-col items-center text-white/50" aria-hidden="true">
+        <span className="text-xs tracking-wide">{t.hero.scroll}</span>
         <motion.svg
           width="20"
           height="20"

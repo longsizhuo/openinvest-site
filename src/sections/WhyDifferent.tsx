@@ -1,23 +1,35 @@
 import CommitteeFlow from '../components/diagrams/CommitteeFlow'
+import { useI18n } from '../i18n'
 
 export default function WhyDifferent() {
+  const { t } = useI18n()
   return (
-    <section
-      id="why"
-      className="flex h-screen w-full flex-col items-center justify-center bg-canvas px-6"
-    >
-      <div className="w-full max-w-4xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">The approach</p>
-        <h2 className="mt-3 text-balance text-3xl font-bold leading-tight text-ink sm:text-4xl">
-          Not more agents — a committee that debates.
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-balance text-muted">
-          Three independent analysts argue from different evidence, cross-challenge in a second
-          round, and a CIO synthesizes one verdict with a confidence level. We chose this over the
-          hyped analyst-voting playbook because, on real data, that playbook failed our gates.
-        </p>
-        <div className="mx-auto mt-10 max-w-3xl">
+    <section id="why" className="flex min-h-screen w-full items-center justify-center px-6 py-28">
+      <div className="mx-auto w-full max-w-5xl">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+            {t.why.eyebrow}
+          </p>
+          <h2 className="mt-3 text-balance text-3xl font-bold leading-tight text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.7)] sm:text-4xl">
+            {t.why.title}
+          </h2>
+          <p className="mt-4 text-balance text-white/85 drop-shadow-[0_1px_12px_rgba(0,0,0,0.7)] sm:text-lg">
+            {t.why.lead}
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          {t.why.points.map((p, i) => (
+            <div key={i} className="glass-card p-5">
+              <h3 className="text-base font-semibold text-ink">{p.k}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">{p.v}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="glass-card mt-6 p-6">
           <CommitteeFlow />
+          <p className="mt-2 text-center text-sm text-ink/60">{t.why.committeeCaption}</p>
         </div>
       </div>
     </section>

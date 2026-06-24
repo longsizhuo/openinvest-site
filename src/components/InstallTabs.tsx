@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { INSTALL_TABS } from '../data/site'
+import { useI18n } from '../i18n'
 
 export default function InstallTabs() {
+  const { t } = useI18n()
   const [active, setActive] = useState(INSTALL_TABS[0].id)
   const [copied, setCopied] = useState(false)
-  const tab = INSTALL_TABS.find((t) => t.id === active) ?? INSTALL_TABS[0]
+  const tab = INSTALL_TABS.find((x) => x.id === active) ?? INSTALL_TABS[0]
+  const note = (t.install as Record<string, string>)[tab.id]
 
   async function copy() {
     try {
@@ -17,49 +20,49 @@ export default function InstallTabs() {
   }
 
   return (
-    <div className="w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/30 backdrop-blur-sm">
+    <div className="glass-card w-full max-w-2xl overflow-hidden text-left">
       {/* tab bar + copy */}
-      <div className="flex flex-wrap items-center gap-1 border-b border-white/10 px-2 py-2" role="tablist" aria-label="Install method">
-        {INSTALL_TABS.map((t) => {
-          const on = t.id === active
+      <div className="flex flex-wrap items-center gap-1 border-b border-ink/10 px-2 py-2" role="tablist" aria-label="Install method">
+        {INSTALL_TABS.map((x) => {
+          const on = x.id === active
           return (
             <button
-              key={t.id}
+              key={x.id}
               role="tab"
               aria-selected={on}
               onClick={() => {
-                setActive(t.id)
+                setActive(x.id)
                 setCopied(false)
               }}
               className={
-                'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ' +
-                (on ? 'bg-brand text-white' : 'text-white/55 hover:bg-white/5 hover:text-white/90')
+                'px-3 py-1.5 text-sm font-medium transition-colors ' +
+                (on ? 'bg-brand text-white' : 'text-muted hover:bg-ink/5 hover:text-ink')
               }
             >
-              {t.label}
+              {x.label}
             </button>
           )
         })}
         <button
           onClick={copy}
-          className="ml-auto rounded-md border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-medium text-white/80 transition-colors hover:bg-white/10"
+          className="ml-auto border border-ink/15 bg-ink/5 px-2.5 py-1 text-xs font-medium text-ink/70 transition-colors hover:bg-ink/10"
           aria-label="Copy install command"
         >
-          {copied ? 'Copied' : 'Copy'}
+          {copied ? t.install.copied : t.install.copy}
         </button>
       </div>
 
       {/* command body */}
-      <div className="overflow-x-auto px-4 py-4 font-mono text-[13px] leading-relaxed text-white/90">
+      <div className="overflow-x-auto bg-ink/[0.04] px-4 py-4 font-mono text-[13px] leading-relaxed text-ink">
         {tab.commands.map((c, i) => (
           <div key={i} className="whitespace-pre">
-            <span className="select-none text-brand/70">$ </span>
+            <span className="select-none text-brand">$ </span>
             {c}
           </div>
         ))}
       </div>
 
-      {tab.note && <p className="border-t border-white/10 px-4 py-2.5 text-xs text-white/45">{tab.note}</p>}
+      {note && <p className="px-4 py-2.5 text-xs text-muted">{note}</p>}
     </div>
   )
 }

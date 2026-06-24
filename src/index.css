@@ -5,15 +5,25 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
   }
   body {
-    @apply bg-canvas text-ink font-sans antialiased;
+    @apply bg-hero text-white font-sans antialiased;
     margin: 0;
   }
-  /* Honor reduced-motion: kill smooth scroll */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
+  }
+}
+
+@layer components {
+  /* white translucent frosted glass, sharp corners (serious/scientific) */
+  .glass-card {
+    @apply border border-white/40 bg-white/75 text-ink shadow-xl backdrop-blur-md;
+  }
+  .glass-nav {
+    @apply border-b border-white/10 bg-hero/40 backdrop-blur-md;
   }
 }

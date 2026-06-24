@@ -14,7 +14,7 @@ export default function ChartCard({
   children: ReactNode
 }) {
   return (
-    <div className="flex flex-col rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
+    <div className="glass-card flex flex-col p-5 sm:p-6">
       <h3 className="text-lg font-semibold text-ink">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted">{takeaway}</p>
       <div className="mt-5 h-64 w-full">{children}</div>
