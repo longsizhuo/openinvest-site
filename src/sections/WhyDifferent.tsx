@@ -2,7 +2,7 @@ export default function WhyDifferent() {
   return (
     <section
       id="why"
-      className="snap-start snap-always flex h-screen w-full flex-col items-center justify-center bg-canvas px-6"
+      className="flex h-screen w-full flex-col items-center justify-center bg-canvas px-6"
     >
       <div className="max-w-3xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">The approach</p>
