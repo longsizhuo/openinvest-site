@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Privacy — OpenInvest</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: #0e1726;
+        color: #e6e9ef;
+        font: 16px/1.7 Inter, "Noto Sans", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 72px 24px 96px; }
+      a { color: #5b8bff; }
+      h1 { font-size: 32px; font-weight: 700; margin: 0 0 6px; color: #fff; }
+      h2 { font-size: 18px; font-weight: 700; margin: 36px 0 8px; color: #fff; }
+      p, li { color: #c2c8d4; }
+      .muted { color: #949ca8; font-size: 14px; }
+      ul { padding-left: 20px; }
+      li { margin: 6px 0; }
+      .tldr {
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 16px 18px;
+        margin: 20px 0 8px;
+      }
+      hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 40px 0; }
+      .back { display: inline-block; margin-bottom: 28px; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <a class="back" href="/">← OpenInvest</a>
+      <h1>Privacy</h1>
+      <p class="muted">Last updated: 2026-06-24</p>
+
+      <div class="tldr">
+        <strong>TL;DR.</strong> OpenInvest is self-hosted and local-first. The author runs no
+        server and receives none of your data. Your portfolio, ledger, config, and committee
+        transcripts stay on the machine where you run it. LLM and market-data calls go directly
+        from your instance to the providers you configure, under your own keys and their terms.
+        No telemetry, no analytics, no tracking.
+      </div>
+
+      <h2>What we collect</h2>
+      <p>
+        Nothing. OpenInvest has no backend operated by the author and no account system. There is
+        no server that receives your portfolio, holdings, trades, or queries.
+      </p>
+
+      <h2>Where your data lives</h2>
+      <ul>
+        <li>Your holdings, cash ledger (a local SQLite file), configuration, and committee
+          transcripts are stored on your own machine or self-hosted instance.</li>
+        <li>The internal ledger is a record-keeping database only — it connects to no real
+          payment processor or brokerage.</li>
+      </ul>
+
+      <h2>Third-party calls made by your instance</h2>
+      <ul>
+        <li><strong>LLM providers:</strong> running the committee sends prompts to the model
+          provider you choose — Anthropic (via Claude Code, Coordinator path) or a provider such
+          as DeepSeek (Direct path) — using your own API key and subject to that provider's
+          privacy policy. OpenInvest does not proxy, store, or log these centrally.</li>
+        <li><strong>Market data:</strong> prices are fetched from public sources (e.g. Yahoo
+          Finance via yfinance) directly by your instance.</li>
+        <li><strong>Optional publishing:</strong> if you enable the optional P&amp;L / accuracy
+          features, only the aggregated, redacted data you choose to publish is pushed to your own
+          GitHub repository. No symbol-level holdings are published.</li>
+      </ul>
+
+      <h2>This website</h2>
+      <p>
+        This page (openinvest.involutionhell.com) is a static site hosted on GitHub Pages. It sets
+        no cookies and runs no analytics or trackers.
+      </p>
+
+      <h2>Not investment advice</h2>
+      <p>
+        OpenInvest is an LLM-driven decision-support tool. It does not place trades and does not
+        constitute investment advice. Decisions are yours.
+      </p>
+
+      <hr />
+      <h2>中文摘要</h2>
+      <p>
+        OpenInvest 自托管、本地优先。作者不运营任何服务器,也不接收你的任何数据——持仓、账本(本地
+        SQLite)、配置、委员会记录都只存在你自己运行的机器上。跑委员会时,prompt 由你的实例直接发给
+        你自己配置的 LLM provider(用你自己的 key,遵循该 provider 的隐私条款);行情数据从公开来源
+        (如 yfinance)直接拉取。无遥测、无分析、无追踪。内部账本仅作记录,不连接任何真实支付或券商。
+        本工具为决策辅助,不构成投资建议。
+      </p>
+
+      <h2>Contact</h2>
+      <p>Questions: <a href="mailto:longsizhuo@gmail.com">longsizhuo@gmail.com</a></p>
+    </div>
+  </body>
+</html>
