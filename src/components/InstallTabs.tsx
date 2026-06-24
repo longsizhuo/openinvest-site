@@ -36,7 +36,7 @@ export default function InstallTabs() {
               }}
               className={
                 'px-3 py-1.5 text-sm font-medium transition-colors ' +
-                (on ? 'bg-brand text-white' : 'text-muted hover:bg-ink/5 hover:text-ink')
+                (on ? 'bg-brand text-white' : 'text-ink/55 hover:bg-ink/5 hover:text-ink')
               }
             >
               {x.label}
@@ -53,7 +53,7 @@ export default function InstallTabs() {
       </div>
 
       {/* command body */}
-      <div className="overflow-x-auto bg-ink/[0.04] px-4 py-4 font-mono text-[13px] leading-relaxed text-ink">
+      <div className="overflow-x-auto bg-ink/[0.06] px-4 py-4 font-mono text-[13px] leading-relaxed text-ink">
         {tab.commands.map((c, i) => (
           <div key={i} className="whitespace-pre">
             <span className="select-none text-brand">$ </span>
@@ -62,7 +62,7 @@ export default function InstallTabs() {
         ))}
       </div>
 
-      {note && <p className="px-4 py-2.5 text-xs text-muted">{note}</p>}
+      {note && <p className="px-4 py-2.5 text-xs text-ink/55">{note}</p>}
     </div>
   )
 }

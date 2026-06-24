@@ -21,7 +21,7 @@
 @layer components {
   /* white translucent frosted glass, sharp corners (serious/scientific) */
   .glass-card {
-    @apply border border-white/40 bg-white/75 text-ink shadow-xl backdrop-blur-md;
+    @apply border border-white/55 bg-white/85 text-ink shadow-2xl shadow-black/40 backdrop-blur-md;
   }
   .glass-nav {
     @apply border-b border-white/10 bg-hero/40 backdrop-blur-md;

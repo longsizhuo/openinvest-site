@@ -5,7 +5,7 @@ import { useI18n } from '../i18n'
 export default function Hero() {
   const { t } = useI18n()
   return (
-    <section className="relative flex h-screen w-full flex-col items-center justify-center px-6 text-white">
+    <section className="relative flex h-screen w-full flex-col items-center justify-start px-6 pt-[20vh] text-white">
       <div className="flex w-full max-w-3xl flex-col items-center text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/70">
           {t.hero.tagline}
