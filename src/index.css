@@ -5,6 +5,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Hard-cut between the first two full-screen panels; SnapToggle turns this
+       off once the reader reaches the long evidence section. */
+    scroll-snap-type: y mandatory;
   }
   body {
     @apply bg-canvas text-ink font-sans antialiased;

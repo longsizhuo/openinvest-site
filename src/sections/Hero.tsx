@@ -5,7 +5,7 @@ import heroBg from '../assets/hero-bg.svg'
 export default function Hero() {
   return (
     <section
-      className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-hero px-6 text-white"
+      className="snap-start snap-always relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-hero px-6 text-white"
       style={{
         backgroundImage: `url(${heroBg})`,
         backgroundSize: 'cover',
