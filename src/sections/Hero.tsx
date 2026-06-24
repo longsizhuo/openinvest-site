@@ -15,7 +15,7 @@ export default function Hero() {
       <div className="flex w-full max-w-3xl flex-col items-center text-center">
         <h1
           style={{ color: '#ffffff' }}
-          className="text-6xl font-bold tracking-tight drop-shadow-[0_2px_40px_rgba(46,111,242,0.45)] sm:text-7xl md:text-8xl"
+          className="text-5xl font-bold tracking-tight drop-shadow-[0_2px_40px_rgba(46,111,242,0.45)] sm:text-7xl md:text-8xl"
         >
           OpenInvest
         </h1>
