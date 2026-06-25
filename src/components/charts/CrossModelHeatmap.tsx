@@ -25,7 +25,7 @@ export function CrossModelHeatmap() {
               return (
                 <div
                   key={ci}
-                  className="flex flex-col items-center justify-center rounded-lg py-3 text-sm font-bold"
+                  className="flex flex-col items-center justify-center py-3 text-sm font-bold"
                   style={{
                     background: pass ? palette.win + '1f' : '#F4F5F7',
                     color: pass ? palette.win : palette.muted,

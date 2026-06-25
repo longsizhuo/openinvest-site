@@ -10,11 +10,11 @@ export function AnalystGateChart() {
         <YAxis tick={{ fontSize: 11, fill: palette.muted }} axisLine={false} tickLine={false} domain={[0, 80]} unit="%" />
         <Tooltip
           cursor={{ fill: 'rgba(0,0,0,0.03)' }}
-          contentStyle={{ borderRadius: 12, border: `1px solid ${palette.grid}`, fontSize: 12 }}
+          contentStyle={{ borderRadius: 0, border: `1px solid ${palette.grid}`, fontSize: 12 }}
         />
         <Legend wrapperStyle={{ fontSize: 12 }} />
-        <Bar name="Analyst agent" dataKey="analyst" fill={palette.loss} radius={[5, 5, 0, 0]} isAnimationActive={false} />
-        <Bar name="Naive baseline" dataKey="baseline" fill={palette.baseline} radius={[5, 5, 0, 0]} isAnimationActive={false} />
+        <Bar name="Analyst agent" dataKey="analyst" fill={palette.loss} isAnimationActive={false} />
+        <Bar name="Naive baseline" dataKey="baseline" fill={palette.baseline} isAnimationActive={false} />
       </BarChart>
     </ResponsiveContainer>
   )

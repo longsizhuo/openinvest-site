@@ -8,7 +8,7 @@ export function BearCagrChart() {
         <XAxis dataKey="name" tick={{ fontSize: 12, fill: palette.muted }} axisLine={false} tickLine={false} interval={0} />
         <YAxis tick={{ fontSize: 11, fill: palette.muted }} axisLine={false} tickLine={false} unit="%" />
         <ReferenceLine y={0} stroke={palette.muted} />
-        <Bar dataKey="value" radius={[6, 6, 0, 0]} isAnimationActive={false}>
+        <Bar dataKey="value" isAnimationActive={false}>
           {bearCagr.data.map((d, i) => (
             <Cell key={i} fill={d.kind === 'win' ? palette.win : palette.baseline} />
           ))}

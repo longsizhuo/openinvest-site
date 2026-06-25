@@ -10,11 +10,11 @@ export function RegimeSharpeChart() {
         <YAxis tick={{ fontSize: 11, fill: palette.muted }} axisLine={false} tickLine={false} />
         <Tooltip
           cursor={{ fill: 'rgba(0,0,0,0.03)' }}
-          contentStyle={{ borderRadius: 12, border: `1px solid ${palette.grid}`, fontSize: 12 }}
+          contentStyle={{ borderRadius: 0, border: `1px solid ${palette.grid}`, fontSize: 12 }}
         />
         <Legend wrapperStyle={{ fontSize: 12 }} />
-        <Bar name="Committee" dataKey="committee" fill={palette.committee} radius={[5, 5, 0, 0]} isAnimationActive={false} />
-        <Bar name="Buy & hold" dataKey="buyhold" fill={palette.baseline} radius={[5, 5, 0, 0]} isAnimationActive={false} />
+        <Bar name="Committee" dataKey="committee" fill={palette.committee} isAnimationActive={false} />
+        <Bar name="Buy & hold" dataKey="buyhold" fill={palette.baseline} isAnimationActive={false} />
       </BarChart>
     </ResponsiveContainer>
   )
