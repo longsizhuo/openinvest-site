@@ -80,15 +80,15 @@ export const DOCS_INDEX: DocIndexItem[] = [
     "category": "wiki"
   },
   {
-    "slug": "13-param-tuning-feasibility-addendum",
-    "title": "参数调优可行性诊断 — 补充文档",
-    "intent": "参数耦合分析与调优可行性",
-    "category": "wiki"
-  },
-  {
     "slug": "13-param-tuning-feasibility",
     "title": "openInvest 参数调优可行性诊断",
     "intent": "决策参数",
+    "category": "wiki"
+  },
+  {
+    "slug": "13-param-tuning-feasibility-addendum",
+    "title": "参数调优可行性诊断 — 补充文档",
+    "intent": "参数耦合分析与调优可行性",
     "category": "wiki"
   },
   {

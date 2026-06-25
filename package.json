@@ -5,7 +5,8 @@
   "type": "module",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/sync-docs.js && vite",
+    "prebuild": "node scripts/sync-docs.js",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
