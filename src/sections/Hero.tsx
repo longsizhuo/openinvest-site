@@ -20,7 +20,7 @@ export default function Hero() {
           {t.hero.subtitle}
         </p>
 
-        <div className="mt-14 flex w-full justify-center">
+        <div className="mt-[156px] flex w-full justify-center">
           <InstallTabs />
         </div>
       </div>
