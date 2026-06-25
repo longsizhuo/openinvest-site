@@ -25,6 +25,9 @@ export function TopNav() {
           <button onClick={() => toId('evidence')} className="hidden px-3 py-1.5 transition-colors hover:text-white sm:block">
             {t.nav.evidence}
           </button>
+          <button onClick={() => toId('methodology')} className="hidden px-3 py-1.5 transition-colors hover:text-white sm:block">
+            {t.nav.methodology}
+          </button>
           <button onClick={() => toId('get-started')} className="hidden px-3 py-1.5 transition-colors hover:text-white sm:block">
             {t.nav.install}
           </button>

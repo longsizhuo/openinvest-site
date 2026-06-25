@@ -8,6 +8,7 @@ import Footer from './sections/Footer'
 
 // Evidence pulls in recharts (~heavy) — separate chunk so the hero paints first.
 const Evidence = lazy(() => import('./sections/Evidence'))
+const ResearchMethodology = lazy(() => import('./sections/ResearchMethodology'))
 
 export default function App() {
   return (
@@ -19,6 +20,9 @@ export default function App() {
       <WhyDifferent />
       <Suspense fallback={<div className="min-h-screen" />}>
         <Evidence />
+      </Suspense>
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <ResearchMethodology />
       </Suspense>
       <Footer />
     </>

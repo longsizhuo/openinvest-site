@@ -4,7 +4,7 @@ export type Lang = 'en' | 'zh'
 
 const STR = {
   en: {
-    nav: { why: 'Why', evidence: 'Evidence', install: 'Install', github: 'Star on GitHub' },
+    nav: { why: 'Why', evidence: 'Evidence', methodology: 'Research', install: 'Install', github: 'Star on GitHub' },
     hero: {
       tagline: 'Self-hosted AI investment committee',
       subtitle:
@@ -88,9 +88,54 @@ const STR = {
       disclaimer:
         'LLM-driven decision support — not investment advice. The system never auto-trades; the internal ledger is a local record and connects to no real payment or brokerage. Published hit-rate is ~25% directional / 84% HOLD — this tool won’t make you rich, it makes the decision process transparent. Past performance does not predict future returns.',
     },
+    methodology: {
+      eyebrow: 'Methodology & Deep Dive',
+      title: 'Under the Hood: OpenInvest’s 5 Core Systems',
+      lead: 'A rigorous walk-through of the architectural decisions, math, and validation results that power our calibrated committee.',
+      dreaming: {
+        title: '1. Dreaming: Sleep-Cycle Memory Integration',
+        desc: 'To fix the LLM’s zero-session memory, a three-stage nightly job consolidates historical decisions. We apply volatility-aware opportunity cost thresholds to HOLD verdicts to counter over-conservatism.',
+        light: 'Light Sleep',
+        lightDesc: 'Ingest verdicts & tag daily regime',
+        rem: 'REM Sleep',
+        remDesc: 'Aggregate outcomes by asset × regime',
+        deep: 'Deep Sleep',
+        deepDesc: 'Consolidate via thresholds (score ≥ 0.8)'
+      },
+      path: {
+        title: '2. Probability Table Pathification',
+        desc: 'Instead of untestable point estimates, we query 20+ years of historical data for the active regime. Paths are sorted into 4 mutually-exclusive categories using volatility units.',
+        types: [
+          { k: 'Dipped & Up', v: 'Min ≤ -1 ATR & Return > 0. Pullback buy opportunity.' },
+          { k: 'Direct Up', v: 'Min > -1 ATR & Return > 0. Waiting leads to FOMO.' },
+          { k: 'Popped & Down', v: 'Max ≥ 1 ATR & Return ≤ 0. Sell into strength before drop.' },
+          { k: 'Downward Slide', v: 'Max < 1 ATR & Return ≤ 0. Strict bearish trend.' }
+        ],
+        rigor: 'Rigorous Calibration: Conditional prior shrinkage (k=80) and band expansion (γ=1.1) ensure P10–P90 coverage lands in the pre-registered [75%, 85%] band.'
+      },
+      paths: {
+        title: '3. Dual Execution Paths',
+        desc: 'The same prompts run through two distinct implementations. Disagreements between Claude and DeepSeek are used as a model divergence validation signal rather than a bug.',
+        coordinator: 'Coordinator Path (Claude Code)',
+        coordinatorDesc: 'Local sandboxed subprocesses. Zero-cost execution powered by user subscription.',
+        direct: 'Direct Path (FastAPI + DeepSeek)',
+        directDesc: 'ThreadPool execution for cron-based automation and real-time live SSE stream.'
+      },
+      optuna: {
+        title: '4. Bayesian Optimization & Negative Results',
+        desc: 'We optimize prompts and allocation rules programmatically. Rather than hiding failed assumptions, we document them to ensure scientific integrity.',
+        reward: 'Reward Function: Annualized Return - 0.5 × MaxDrawdown + 0.2 × (Sharpe - 1)',
+        placebo: 'Intellectual Honesty: Optuna revealed that multi-round debate is a placebo (1 round = 3 rounds in performance). TradingAgents subagents also performed below naive baselines. Focus remains on calibrated CIO veto rights.'
+      },
+      markdown: {
+        title: '5. Markdown DB & Concurrency Locks',
+        desc: 'We use YAML frontmatter for schema validation (Pydantic) and the Markdown body for direct LLM ingestion. Atomic transactions are secured via fcntl file locks.',
+        lockDesc: 'Fcntl read-modify-write (RMW) locking prevents race conditions between chat bots, schedulers, and APIs.'
+      }
+    },
   },
   zh: {
-    nav: { why: '为什么', evidence: '实证', install: '安装', github: 'GitHub 点星' },
+    nav: { why: '为什么', evidence: '实证', methodology: '研究方法', install: '安装', github: 'GitHub 点星' },
     hero: {
       tagline: '自部署的 AI 投资委员会',
       subtitle: '四个独立 LLM 角色互相 challenge，CIO 综合出唯一 verdict —— 决策权归你。',
@@ -170,6 +215,51 @@ const STR = {
       license: 'MIT 协议',
       disclaimer:
         'LLM 驱动的决策辅助 —— 不构成投资建议。系统不会自动下单；内部账本是本地记录，不连接任何真实支付或券商。公开命中率约 25% 方向 / 84% HOLD —— 这工具不会让你致富，它只是把决策过程透明化。过去表现不预示未来收益。',
+    },
+    methodology: {
+      eyebrow: '方法论与技术深挖',
+      title: '底层机制：OpenInvest 的五大核心设计',
+      lead: '系统设计决策、校准数学和验证结果的完整梳理，用科学严谨支撑委员会决策。',
+      dreaming: {
+        title: '1. Dreaming 三阶段记忆整合',
+        desc: '解决 LLM 无跨会话记忆的问题。每日凌晨通过三阶段整合，将历史判断转化为长期 Insight；对 HOLD 决议采用波动率感知阈值以捕捉机会成本。',
+        light: '浅度睡眠 (Light)',
+        lightDesc: '摄入昨日决议并标注当时市况',
+        rem: '眼动期 (REM)',
+        remDesc: '按资产×决议×市况聚合命中率',
+        deep: '深度睡眠 (Deep)',
+        deepDesc: '通过阈值门 (评分≥0.8) 固化为 Insight'
+      },
+      path: {
+        title: '2. 概率表路径化与四类形状',
+        desc: '不提供无法回测的点估计，而是拉取同市况下 20 多年的历史走势，以 Wilder ATR 波动率单位划分为四类完备且互斥的期前路径。',
+        types: [
+          { k: '先跌后涨 (Dipped & Up)', v: '途中跌幅≥1 ATR 且期末收涨。提供低吸接回机会。' },
+          { k: '直接涨 (Direct Up)', v: '途中无显著回踩且期末收涨。空手等待回调将踏空。' },
+          { k: '冲高回落 (Popped & Down)', v: '途中冲高≥1 ATR 且期末收跌。卖出离场的黄金时点。' },
+          { k: '一路收跌 (Downward Slide)', v: '途中无冲高且期末收跌。单边下行行情。' }
+        ],
+        rigor: '严谨校准：通过小样本收缩 (k=80) 与置信带宽扩张 (γ=1.1) 修正覆盖率，确保 P10–P90 落在预注册的 [75%, 85%] 带宽内。'
+      },
+      paths: {
+        title: '3. 双执行路径与模型比对',
+        desc: '同一套提示词运行在两套完全不同的底层。Claude 与 DeepSeek 决议的分歧被视作模型偏差的检验信号，而非软件漏洞。',
+        coordinator: 'Coordinator 路径 (Claude Code)',
+        coordinatorDesc: '本地沙盒化子进程。利用用户已订阅的 Claude 4 额度，零 API 成本运行。',
+        direct: 'Direct 路径 (FastAPI + DeepSeek)',
+        directDesc: '线程池并发运行。支持无人值守的 cron 定时器和 Web 端 SSE 进度直播。',
+      },
+      optuna: {
+        title: '4. Optuna/DSPy 优化与负结果严谨性',
+        desc: '通过贝叶斯搜索与 DSPy 自举优化提示词，并对所有假设进行实测求证。我们如实公开负面结果，不作选择性叙事。',
+        reward: 'Reward 函数：年化收益 - 0.5 × 最大回撤 + 0.2 × (Sharpe - 1)',
+        placebo: '诚实的负结果：Optuna 证实多轮辩论为安慰剂（1 轮与 3 轮收益相同）；TradingAgents 风格分析师未过命中率 Gate。最终依赖 CIO 校准否决权。'
+      },
+      markdown: {
+        title: '5. Markdown 数据库与并发事务锁',
+        desc: '用 YAML frontmatter 做 Pydantic 强模式校验，Markdown 正文供 LLM 直接摄入，免去序列化开销。',
+        lockDesc: '采用 fcntl 进程级文件锁实现 RMW（读-改-写）事务闭包，彻底防止机器人、Cron 和 Web API 踩踏。'
+      }
     },
   },
 }
