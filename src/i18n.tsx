@@ -131,7 +131,11 @@ const STR = {
         title: '5. Markdown DB & Concurrency Locks',
         desc: 'We use YAML frontmatter for schema validation (Pydantic) and the Markdown body for direct LLM ingestion. Atomic transactions are secured via fcntl file locks.',
         lockDesc: 'Fcntl read-modify-write (RMW) locking prevents race conditions between chat bots, schedulers, and APIs.'
-      }
+      },
+      docsTitle: '6. Official Reference Documentation',
+      docsDesc: 'Browse and read the raw, unedited Markdown documentation and Architecture Decision Records (ADRs) directly from our codebase.',
+      wikiHeading: 'Wiki Chapters',
+      adrHeading: 'Design Decisions (ADR)'
     },
   },
   zh: {
@@ -258,8 +262,12 @@ const STR = {
       markdown: {
         title: '5. Markdown 数据库与并发事务锁',
         desc: '用 YAML frontmatter 做 Pydantic 强模式校验，Markdown 正文供 LLM 直接摄入，免去序列化开销。',
-        lockDesc: '采用 fcntl 进程级文件锁实现 RMW（读-改-写）事务闭包，彻底防止机器人、Cron 和 Web API 踩踏。'
-      }
+        lockDesc: '采用 fcntl 进程级文件锁实现 RMW（读-改-写）事务闭包，彻底防止机器人、Cron 和 Web API 踩踏。',
+      },
+      docsTitle: '6. 官方参考文档浏览器',
+      docsDesc: '直接在线查阅我们代码库中完整、未删剪的官方设计文档与架构决策记录（ADR）。',
+      wikiHeading: 'Wiki 章节',
+      adrHeading: '设计决策记录 (ADR)'
     },
   },
 }

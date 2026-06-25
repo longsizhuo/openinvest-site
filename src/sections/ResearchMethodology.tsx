@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { useI18n } from '../i18n'
 import { calibrationMath, palette } from '../data/experiments'
+import { DOCS_INDEX } from '../data/docsIndex'
 
 export function ResearchMethodology() {
   const { t, lang } = useI18n()
@@ -12,6 +13,35 @@ export function ResearchMethodology() {
 
   // State for Path shapes
   const [activePathShape, setActivePathShape] = useState<0 | 1 | 2 | 3>(0)
+
+  // State for Document browser
+  const [selectedDoc, setSelectedDoc] = useState<{ category: 'wiki' | 'adr'; slug: string }>({
+    category: 'wiki',
+    slug: '01-architecture',
+  })
+  const [docBody, setDocBody] = useState<string>('')
+  const [docLoading, setDocLoading] = useState<boolean>(false)
+
+  // Fetch document contents
+  useEffect(() => {
+    setDocLoading(true)
+    const folder = selectedDoc.category === 'wiki' ? 'wiki' : 'wiki/adr'
+    fetch(`/docs/${folder}/${selectedDoc.slug}.md`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to load')
+        return res.text()
+      })
+      .then((text) => {
+        // Strip frontmatter from text
+        const body = text.replace(/^---\s*\n(.*?)\n---\s*\n/s, '')
+        setDocBody(body)
+        setDocLoading(false)
+      })
+      .catch(() => {
+        setDocBody('Failed to load document.')
+        setDocLoading(false)
+      })
+  }, [selectedDoc])
 
   // Sleep stage details selector
   const dreamStages = [
@@ -158,7 +188,7 @@ export function ResearchMethodology() {
 
   return (
     <section id="methodology" className="border-t border-gray-200 bg-[#FFFFFF] px-6 py-28 text-gray-900">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-5xl text-left">
         
         {/* Section Header */}
         <header className="mx-auto max-w-2xl text-center">
@@ -471,9 +501,189 @@ export function ResearchMethodology() {
           </div>
         </div>
 
+        {/* 6. Official Reference Documentation */}
+        <div className="mt-8 border border-gray-200 bg-white p-6 md:p-8">
+          <span className="font-mono text-xs text-brand uppercase tracking-wider font-semibold">System 06</span>
+          <h3 className="mt-2 text-xl font-bold text-gray-900 sm:text-2xl">{m.docsTitle}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-gray-600 max-w-3xl">{m.docsDesc}</p>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+            {/* Left panel: Document list */}
+            <div className="md:col-span-1 space-y-6 max-h-[500px] overflow-y-auto pr-2 border-r border-gray-200">
+              <div>
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                  {m.wikiHeading}
+                </h4>
+                <div className="flex flex-col gap-1">
+                  {DOCS_INDEX.filter(d => d.category === 'wiki').map(doc => {
+                    const isSelected = selectedDoc.category === 'wiki' && selectedDoc.slug === doc.slug
+                    return (
+                      <button
+                        key={doc.slug}
+                        onClick={() => setSelectedDoc({ category: 'wiki', slug: doc.slug })}
+                        className={`text-left px-2 py-1.5 text-xs transition border-l-2 ${
+                          isSelected
+                            ? 'border-brand bg-gray-50 text-brand font-semibold'
+                            : 'border-transparent text-gray-600 hover:text-gray-900'
+                        }`}
+                        title={doc.intent || doc.title}
+                      >
+                        <div className="truncate font-mono">{doc.slug}</div>
+                        <div className="truncate text-[10px] text-gray-400 mt-0.5">{doc.title}</div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                  {m.adrHeading}
+                </h4>
+                <div className="flex flex-col gap-1">
+                  {DOCS_INDEX.filter(d => d.category === 'adr').map(doc => {
+                    const isSelected = selectedDoc.category === 'adr' && selectedDoc.slug === doc.slug
+                    return (
+                      <button
+                        key={doc.slug}
+                        onClick={() => setSelectedDoc({ category: 'adr', slug: doc.slug })}
+                        className={`text-left px-2 py-1.5 text-xs transition border-l-2 ${
+                          isSelected
+                            ? 'border-brand bg-gray-50 text-brand font-semibold'
+                            : 'border-transparent text-gray-600 hover:text-gray-900'
+                        }`}
+                        title={doc.intent || doc.title}
+                      >
+                        <div className="truncate font-mono">{doc.slug}</div>
+                        <div className="truncate text-[10px] text-gray-400 mt-0.5">{doc.title}</div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Right panel: Content viewer */}
+            <div className="md:col-span-3 min-h-[400px] max-h-[500px] overflow-y-auto border border-gray-200 bg-gray-50/20 p-6 flex flex-col">
+              {docLoading ? (
+                <div className="text-gray-400 text-xs flex items-center justify-center flex-1">
+                  {lang === 'zh' ? '加载中...' : 'Loading...'}
+                </div>
+              ) : (
+                <article className="prose max-w-none text-gray-800 text-xs">
+                  {renderMarkdown(docBody)}
+                </article>
+              )}
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   )
+}
+
+// Lightweight custom Markdown line renderer
+function renderMarkdown(text: string) {
+  const lines = text.split('\n')
+  let inCodeBlock = false
+  let codeBlockLines: string[] = []
+
+  const elements: React.ReactNode[] = []
+
+  for (let idx = 0; idx < lines.length; idx++) {
+    const line = lines[idx]
+
+    // Code block detection
+    if (line.startsWith('```')) {
+      if (inCodeBlock) {
+        // End of code block
+        elements.push(
+          <pre key={`code-${idx}`} className="font-mono text-[11px] bg-gray-950 text-gray-200 px-4 py-3 my-3 overflow-x-auto whitespace-pre">
+            {codeBlockLines.join('\n')}
+          </pre>
+        )
+        codeBlockLines = []
+        inCodeBlock = false
+      } else {
+        // Start of code block
+        inCodeBlock = true
+      }
+      continue
+    }
+
+    if (inCodeBlock) {
+      codeBlockLines.push(line)
+      continue
+    }
+
+    // Horizontal Rule
+    if (line.trim() === '---' || line.trim() === '***') {
+      elements.push(<hr key={idx} className="border-t border-gray-200 my-6" />)
+      continue
+    }
+
+    // Headings
+    if (line.startsWith('# ')) {
+      elements.push(
+        <h1 key={idx} className="text-lg font-bold text-gray-900 mt-6 mb-3 border-b border-gray-200 pb-1">
+          {line.slice(2)}
+        </h1>
+      )
+      continue
+    }
+    if (line.startsWith('## ')) {
+      elements.push(
+        <h2 key={idx} className="text-sm font-bold text-gray-900 mt-5 mb-2">
+          {line.slice(3)}
+        </h2>
+      )
+      continue
+    }
+    if (line.startsWith('### ')) {
+      elements.push(
+        <h3 key={idx} className="text-xs font-bold text-gray-900 mt-4 mb-2">
+          {line.slice(4)}
+        </h3>
+      )
+      continue
+    }
+
+    // Blockquotes
+    if (line.startsWith('> ')) {
+      elements.push(
+        <blockquote key={idx} className="border-l-4 border-brand bg-gray-50 px-4 py-2 my-3 text-xs italic text-gray-500">
+          {line.slice(2)}
+        </blockquote>
+      )
+      continue
+    }
+
+    // Lists
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      elements.push(
+        <li key={idx} className="ml-5 list-disc text-xs text-gray-700 my-1">
+          {line.slice(2)}
+        </li>
+      )
+      continue
+    }
+
+    // Empty space
+    if (line.trim() === '') {
+      elements.push(<div key={idx} className="h-2" />)
+      continue
+    }
+
+    // Standard paragraph
+    elements.push(
+      <p key={idx} className="text-xs text-gray-700 leading-relaxed my-2">
+        {line}
+      </p>
+    )
+  }
+
+  return elements
 }
 
 export default ResearchMethodology
