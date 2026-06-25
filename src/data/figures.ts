@@ -4,6 +4,11 @@ export type Figure = { src: string; en: string; zh: string }
 
 export const FIGURES: Figure[] = [
   {
+    src: '/figures/figure1_mechanisms.png',
+    en: 'Where multi-agent value actually comes from — three mechanisms: independent information sources, de-correlated sampling + aggregation, and deterministic guardrails.',
+    zh: '多智能体价值的三个真实来源：独立信息源、去相关采样＋聚合、确定性护栏。',
+  },
+  {
     src: '/figures/figure2_verifiability.png',
     en: 'Why returns are untestable: t = SR·√T. At Sharpe ≈ 1 you need decades to prove skill — so we grade calibration, not P&L.',
     zh: '为什么收益率测不动：t = SR·√T。Sharpe≈1 要几十年才能证明"有本事"——所以我们评估校准，而不是 P&L。',
@@ -12,6 +17,11 @@ export const FIGURES: Figure[] = [
     src: '/figures/figure6_coverage_by_window.png',
     en: 'Band calibration (γ=1.1) lifts P10–P90 coverage into the pre-registered [75%, 85%] band at every horizon.',
     zh: '带宽校准（γ=1.1）把 P10–P90 覆盖率在每个时间尺度都抬进预注册的 [75%, 85%] 区间。',
+  },
+  {
+    src: '/figures/table2_calibration.png',
+    en: 'Pre-registered out-of-sample acceptance: the calibration layer lifts coverage into [75,85]% and improves Brier at every horizon (fit 2007–17, OOS 2018–26).',
+    zh: '预注册样本外验收：校准层把覆盖率抬进 [75,85]%、各时间尺度 Brier 全部改善（拟合 2007–17，样本外 2018–26）。',
   },
   {
     src: '/figures/figure7_confidence_distribution.png',

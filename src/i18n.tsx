@@ -47,7 +47,10 @@ const STR = {
       title: 'Calibration-first, on real data — wins and honest losses',
       lead: 'Figures are recomputed from the public research archive. Look-ahead-prone windows are flagged; we show where the committee trails, not just where it leads.',
       defensiveTitle: 'The defensive edge',
+      analystTitle: 'Honest negatives — single analysts fail the gate',
+      mathTitle: 'The calibration math',
       figuresTitle: 'Calibration & rigor',
+      paperLink: 'Read the full paper (PDF)',
       charts: {
         bear: {
           title: '2022 bear market — the committee protected capital',
@@ -60,6 +63,18 @@ const STR = {
           takeaway:
             'The committee leads in the 2022 bear and edges ahead in the bull — and, honestly, trails buy-and-hold in the sharp 2020 V-shaped crash.',
           caveat: '† 2024–26 bull carries LLM look-ahead (upper-bound only). * 2020 / 2022 are clean. Sharpe ratio, GC=F.',
+        },
+        analyst: {
+          title: 'TradingAgents-style analysts vs a naive baseline',
+          takeaway:
+            'Fundamental, news and sentiment analysts all missed our pre-registered hit-rate gate — a naive “always-majority” baseline beat every one.',
+          caveat: '30-day directional hit-rate, Wilson 95% CI, n≈244/analyst. The single-sided bull window makes the ~73% baseline a high bar by design.',
+        },
+        cross: {
+          title: 'Cross-model validation — one lucky cell isn’t a signal',
+          takeaway:
+            'Across windows × models, exactly one analyst cell ever cleared the gate. We require replication before believing a result — 孤证不立.',
+          caveat: 'Gate = Wilson CI lower bound above both the naive baseline and the mechanical mapping.',
         },
       },
     },
@@ -117,7 +132,10 @@ const STR = {
       title: '校准优先，用真实数据说话 —— 有胜绩，也有诚实的失败',
       lead: '图表全部重算自公开研究档案。可能含 lookahead 的窗口已标注；我们也展示委员会跑输的情况，而不只是赢的。',
       defensiveTitle: '防御性优势',
+      analystTitle: '诚实的负结果 —— 单分析师跑不过基率',
+      mathTitle: '校准背后的数学',
       figuresTitle: '校准与严谨性',
+      paperLink: '读完整论文（PDF）',
       charts: {
         bear: {
           title: '2022 熊市 —— 委员会守住了本金',
@@ -128,6 +146,18 @@ const STR = {
           title: '跨三种市况的风险调整收益',
           takeaway: '委员会在 2022 熊市领先、牛市略胜 —— 也诚实地说，在 2020 急速 V 型反弹里跑输买入持有。',
           caveat: '† 2024–26 牛市含 LLM lookahead（仅上限）。* 2020/2022 干净。Sharpe，GC=F。',
+        },
+        analyst: {
+          title: 'TradingAgents 式分析师 vs 朴素基线',
+          takeaway:
+            '基本面、新闻、情绪三个分析师全部没过我们的预注册命中率门 —— 一个"永远跟多数方向"的朴素基线把每个都打赢了。',
+          caveat: '30 天方向命中率，Wilson 95% CI，n≈244/分析师。单边牛市窗口让 ~73% 的基线本就是高门槛。',
+        },
+        cross: {
+          title: '跨模型验证 —— 一个走运的格子不算信号',
+          takeaway:
+            '跨窗口 × 模型，只有一个分析师格子过过门。我们要求可复现才相信结果 —— 孤证不立。',
+          caveat: '门槛 = Wilson CI 下界同时高于朴素基线与机械映射。',
         },
       },
     },

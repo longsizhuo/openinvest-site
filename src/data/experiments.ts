@@ -76,3 +76,26 @@ export const crossModel = {
     { label: '2022 bear · mimo-flash', cells: [74.3, 48.3, 50.9], pass: [true, false, false] },
   ],
 }
+
+// 5 — the calibration layer's two corrections + why we grade calibration, not P&L.
+//     λ / k / γ from the pre-registered fit (paper §5.3); t ≈ SR·√T bound (§4.3).
+export const calibrationMath = [
+  {
+    expr: 'λ = eff_n / (eff_n + k)',
+    sub: 'k = 80',
+    en: 'Small-sample shrinkage — pull thin conditional buckets toward the asset’s unconditional distribution.',
+    zh: '小样本收缩 —— 把样本稀薄的条件分桶往同资产的无条件分布收。',
+  },
+  {
+    expr: 'q′ = γ · q',
+    sub: 'γ = 1.1 · P10/P90',
+    en: 'Bandwidth expansion on the P10/P90 & downside quantiles — fixes the structural under-coverage.',
+    zh: '带宽扩张 —— 对 P10/P90 与下行分位放大，修正结构性覆盖不足。',
+  },
+  {
+    expr: 't ≈ SR · √T',
+    sub: 'Sharpe 1 → ~4 yr',
+    en: 'Why we grade calibration, not P&L: proving Sharpe-1 skill takes years; calibration is testable today.',
+    zh: '为什么评校准而非 P&L：证明 Sharpe=1 的本事要好几年；校准当下就能验。',
+  },
+] as const

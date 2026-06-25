@@ -1,9 +1,14 @@
 import ChartCard from '../components/charts/ChartCard'
 import BearCagrChart from '../components/charts/BearCagrChart'
 import RegimeSharpeChart from '../components/charts/RegimeSharpeChart'
-import { bearCagr, regimeSharpe } from '../data/experiments'
+import AnalystGateChart from '../components/charts/AnalystGateChart'
+import CrossModelHeatmap from '../components/charts/CrossModelHeatmap'
+import { bearCagr, regimeSharpe, analystGate, crossModel, calibrationMath } from '../data/experiments'
 import { FIGURES } from '../data/figures'
 import { useI18n } from '../i18n'
+
+// PDF lives in public/ with a CJK + spaces name — encodeURI makes a valid href.
+const PAPER_HREF = encodeURI('/LLM 多智能体投资系统的架构选择与校准优先评估.pdf')
 
 export default function Evidence() {
   const { t, lang } = useI18n()
@@ -34,6 +39,31 @@ export default function Evidence() {
         </div>
 
         <h3 className="mb-6 mt-16 text-center text-lg font-semibold text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
+          {t.evidence.analystTitle}
+        </h3>
+        <div className="grid gap-6 md:grid-cols-2">
+          <ChartCard title={c.analyst.title} takeaway={c.analyst.takeaway} caveat={c.analyst.caveat} source={analystGate.source}>
+            <AnalystGateChart />
+          </ChartCard>
+          <ChartCard title={c.cross.title} takeaway={c.cross.takeaway} caveat={c.cross.caveat} source={crossModel.source}>
+            <CrossModelHeatmap />
+          </ChartCard>
+        </div>
+
+        <h3 className="mb-6 mt-16 text-center text-lg font-semibold text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
+          {t.evidence.mathTitle}
+        </h3>
+        <div className="grid gap-6 md:grid-cols-3">
+          {calibrationMath.map((m) => (
+            <div key={m.expr} className="glass-card flex flex-col p-6">
+              <code className="font-mono text-lg font-semibold text-ink">{m.expr}</code>
+              <span className="mt-1 font-mono text-xs text-muted">{m.sub}</span>
+              <p className="mt-3 text-sm leading-relaxed text-ink/70">{lang === 'zh' ? m.zh : m.en}</p>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="mb-6 mt-16 text-center text-lg font-semibold text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
           {t.evidence.figuresTitle}
         </h3>
         <div className="grid gap-6 md:grid-cols-2">
@@ -46,6 +76,18 @@ export default function Evidence() {
               </figure>
             )
           })}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <a
+            href={PAPER_HREF}
+            target="_blank"
+            rel="noreferrer"
+            className="glass-card inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:text-brand"
+          >
+            {t.evidence.paperLink}
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </section>
