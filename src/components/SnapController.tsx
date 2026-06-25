@@ -15,7 +15,7 @@ import { useReducedMotion } from 'motion/react'
  * panel 1 (the long section has no snap point to advance to). Reduced-motion
  * disables the hijack entirely — plain native scrolling.
  */
-export default function SnapController() {
+export function SnapController() {
   const reduce = useReducedMotion()
   const locked = useRef(false)
 
@@ -81,3 +81,5 @@ export default function SnapController() {
 
   return null
 }
+
+export default SnapController

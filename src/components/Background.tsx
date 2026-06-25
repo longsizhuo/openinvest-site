@@ -1,6 +1,6 @@
 // Fixed full-bleed owl photo behind everything, darkened toward the bottom so
 // frosted-glass content stays readable on every screen.
-export default function Background() {
+export function Background() {
   return (
     <div aria-hidden className="fixed inset-0 -z-10">
       <div
@@ -11,3 +11,5 @@ export default function Background() {
     </div>
   )
 }
+
+export default Background

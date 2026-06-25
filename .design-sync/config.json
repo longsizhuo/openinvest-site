@@ -1,0 +1,13 @@
+{
+  "pkg": "openinvest-site",
+  "globalName": "OpenInvestSite",
+  "shape": "package",
+  "projectId": "40903159-414f-46e3-802b-034259b72d54",
+  "srcDir": "src/components",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": "ds-tailwind.css",
+  "extraEntries": ["./.design-sync/preview-providers.tsx"],
+  "provider": { "component": "DSPreviewProvider" },
+  "readmeHeader": ".design-sync/conventions.md",
+  "buildCmd": "bash .design-sync/build-css.sh"
+}

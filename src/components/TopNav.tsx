@@ -5,7 +5,7 @@ function toId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
-export default function TopNav() {
+export function TopNav() {
   const { t, lang, setLang } = useI18n()
   return (
     <header className="glass-nav fixed inset-x-0 top-0 z-40">
@@ -49,3 +49,5 @@ export default function TopNav() {
     </header>
   )
 }
+
+export default TopNav

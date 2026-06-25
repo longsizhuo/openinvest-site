@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { crossModel, palette } from '../../data/experiments'
 
-export default function CrossModelHeatmap() {
+export function CrossModelHeatmap() {
   return (
     <div className="flex h-full w-full flex-col justify-center">
       <div
@@ -45,3 +45,5 @@ export default function CrossModelHeatmap() {
     </div>
   )
 }
+
+export default CrossModelHeatmap

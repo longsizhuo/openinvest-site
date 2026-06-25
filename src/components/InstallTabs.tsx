@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { INSTALL_TABS } from '../data/site'
 import { useI18n } from '../i18n'
 
-export default function InstallTabs() {
+export function InstallTabs() {
   const { t } = useI18n()
   const [active, setActive] = useState(INSTALL_TABS[0].id)
   const [copied, setCopied] = useState(false)
@@ -66,3 +66,5 @@ export default function InstallTabs() {
     </div>
   )
 }
+
+export default InstallTabs

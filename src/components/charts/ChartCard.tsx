@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export default function ChartCard({
+export function ChartCard({
   title,
   takeaway,
   caveat,
@@ -23,3 +23,5 @@ export default function ChartCard({
     </div>
   )
 }
+
+export default ChartCard

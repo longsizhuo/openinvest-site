@@ -1,7 +1,7 @@
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { analystGate, palette } from '../../data/experiments'
 
-export default function AnalystGateChart() {
+export function AnalystGateChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={[...analystGate.data]} margin={{ top: 16, right: 8, bottom: 0, left: -16 }}>
@@ -19,3 +19,5 @@ export default function AnalystGateChart() {
     </ResponsiveContainer>
   )
 }
+
+export default AnalystGateChart

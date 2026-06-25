@@ -1,7 +1,7 @@
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { palette, regimeSharpe } from '../../data/experiments'
 
-export default function RegimeSharpeChart() {
+export function RegimeSharpeChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={[...regimeSharpe.data]} margin={{ top: 16, right: 8, bottom: 0, left: -16 }}>
@@ -19,3 +19,5 @@ export default function RegimeSharpeChart() {
     </ResponsiveContainer>
   )
 }
+
+export default RegimeSharpeChart

@@ -53,7 +53,7 @@ function Token({ x1, y1, x2, y2, delay }: { x1: number; y1: number; x2: number; 
   )
 }
 
-export default function CommitteeFlow() {
+export function CommitteeFlow() {
   return (
     <svg viewBox="0 0 920 350" className="h-auto w-full" role="img" aria-label="Four-role committee flow diagram">
       <defs>
@@ -126,3 +126,5 @@ export default function CommitteeFlow() {
     </svg>
   )
 }
+
+export default CommitteeFlow

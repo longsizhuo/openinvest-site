@@ -1,7 +1,7 @@
 import { Bar, BarChart, Cell, LabelList, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 import { bearCagr, palette } from '../../data/experiments'
 
-export default function BearCagrChart() {
+export function BearCagrChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={[...bearCagr.data]} margin={{ top: 18, right: 8, bottom: 0, left: -10 }}>
@@ -23,3 +23,5 @@ export default function BearCagrChart() {
     </ResponsiveContainer>
   )
 }
+
+export default BearCagrChart
