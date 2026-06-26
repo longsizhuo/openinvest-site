@@ -4,7 +4,7 @@ export type Lang = 'en' | 'zh'
 
 const STR = {
   en: {
-    nav: { why: 'Why', evidence: 'Evidence', methodology: 'Research', install: 'Install', github: 'Star on GitHub' },
+    nav: { why: 'Why', evidence: 'Evidence', methodology: 'Research', docs: 'Documents', install: 'Install', github: 'Star on GitHub' },
     hero: {
       tagline: 'Self-hosted AI investment committee',
       subtitle:
@@ -139,7 +139,7 @@ const STR = {
     },
   },
   zh: {
-    nav: { why: '为什么', evidence: '实证', methodology: '研究方法', install: '安装', github: 'GitHub 点星' },
+    nav: { why: '为什么', evidence: '实证', methodology: '研究方法', docs: '文档', install: '安装', github: 'GitHub 点星' },
     hero: {
       tagline: '自部署的 AI 投资委员会',
       subtitle: '四个独立 LLM 角色互相 challenge，CIO 综合出唯一 verdict —— 决策权归你。',

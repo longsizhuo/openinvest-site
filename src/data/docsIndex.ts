@@ -234,5 +234,11 @@ export const DOCS_INDEX: DocIndexItem[] = [
     "title": "021-currency-aware-path-profile",
     "intent": "",
     "category": "adr"
+  },
+  {
+    "slug": "022-backtest-memory-contamination-and-holdout-discipline",
+    "title": "022-backtest-memory-contamination-and-holdout-discipline",
+    "intent": "",
+    "category": "adr"
   }
 ];
