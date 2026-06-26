@@ -12,12 +12,11 @@ export function DocsView({ activeSlug }: DocsViewProps) {
   const [docBody, setDocBody] = useState<string>('')
   const [docLoading, setDocLoading] = useState<boolean>(false)
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const [frontmatter, setFrontmatter] = useState<Record<string, string>>({})
 
   // Find the currently active document item
   const activeDoc = DOCS_INDEX.find((d) => d.slug === activeSlug) || DOCS_INDEX[0]
 
-  // Fetch document contents and parse frontmatter
+  // Fetch document contents
   useEffect(() => {
     if (!activeDoc) return
     setDocLoading(true)
@@ -29,33 +28,12 @@ export function DocsView({ activeSlug }: DocsViewProps) {
         return res.text()
       })
       .then((text) => {
-        // Strip and parse frontmatter
-        const fmMatch = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/s)
-        let body = text
-        let fm: Record<string, string> = {}
-
-        if (fmMatch) {
-          body = text.replace(/^---\s*\n([\s\S]*?)\n---\s*\n/s, '')
-          const lines = fmMatch[1].split('\n')
-          for (const line of lines) {
-            const colonIdx = line.indexOf(':')
-            if (colonIdx !== -1) {
-              const k = line.slice(0, colonIdx).trim()
-              let v = line.slice(colonIdx + 1).trim()
-              if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
-                v = v.slice(1, -1)
-              }
-              fm[k] = v
-            }
-          }
-        }
-        
-        setFrontmatter(fm)
+        // Strip frontmatter
+        const body = text.replace(/^---\s*\n([\s\S]*?)\n---\s*\n/s, '')
         setDocBody(body)
         setDocLoading(false)
       })
       .catch(() => {
-        setFrontmatter({})
         setDocBody('Failed to load document content. Please verify that the file exists.')
         setDocLoading(false)
       })
@@ -186,56 +164,6 @@ export function DocsView({ activeSlug }: DocsViewProps) {
           </div>
         ) : (
           <div className="flex-1 max-w-4xl w-full mx-auto px-8 md:px-12 py-12">
-            {/* Header / Meta */}
-            <div className="border-b border-gray-200 pb-6 mb-8">
-              <div className="flex items-center gap-2 mb-2 text-xs">
-                <span className={`px-2 py-0.5 font-mono font-semibold uppercase tracking-wider text-[10px] ${
-                  activeDoc.category === 'wiki' ? 'bg-brand/10 text-brand' : 'bg-emerald-100 text-emerald-800'
-                }`}>
-                  {activeDoc.category}
-                </span>
-                <span className="text-gray-400 font-mono">{activeDoc.slug}</span>
-              </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 font-sans tracking-tight leading-tight">
-                {activeDoc.title}
-              </h1>
-              {activeDoc.intent && (
-                <p className="text-xs text-gray-500 font-mono mt-2 italic">
-                  {lang === 'zh' ? '意图: ' : 'Intent: '} {activeDoc.intent}
-                </p>
-              )}
-
-              {/* Frontmatter metadata block */}
-              {Object.keys(frontmatter).length > 0 && (
-                <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 border border-gray-200/80 p-4 font-mono text-[11px] text-gray-600">
-                  {frontmatter.status && (
-                    <div>
-                      <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">{lang === 'zh' ? '状态' : 'Status'}</div>
-                      <div className="mt-1 text-gray-900 font-semibold">{frontmatter.status}</div>
-                    </div>
-                  )}
-                  {frontmatter.date && (
-                    <div>
-                      <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">{lang === 'zh' ? '日期' : 'Date'}</div>
-                      <div className="mt-1 text-gray-900 font-semibold">{frontmatter.date}</div>
-                    </div>
-                  )}
-                  {frontmatter.tags && (
-                    <div className="col-span-2">
-                      <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Tags</div>
-                      <div className="mt-1 flex flex-wrap gap-1">
-                        {frontmatter.tags.replace(/[\[\]]/g, '').split(',').map((t, idx) => (
-                          <span key={idx} className="bg-gray-200 px-1 py-0.5 text-[9px] text-gray-600">
-                            {t.trim()}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
             {/* Document body rendered */}
             <article className="prose max-w-none text-gray-800 text-xs md:text-sm font-sans leading-relaxed">
               {renderMarkdown(docBody)}
